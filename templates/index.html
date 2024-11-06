@@ -90,10 +90,7 @@
             <select id="algorithm" name="algorithm">
                 <option value="AES">AES</option>
                 <option value="DES">DES</option>
-                <option value="3DES">3DES</option>
-                <option value="Blowfish">Blowfish</option>
                 <option value="ChaCha20">ChaCha20</option>
-                <option value="Salsa20">Salsa20</option>
             </select>
 
             <button type="submit">Encrypt</button>
@@ -108,10 +105,7 @@
             <select id="algorithm" name="algorithm">
                 <option value="AES">AES</option>
                 <option value="DES">DES</option>
-                <option value="3DES">3DES</option>
-                <option value="Blowfish">Blowfish</option>
                 <option value="ChaCha20">ChaCha20</option>
-                <option value="Salsa20">Salsa20</option>
             </select>
 
             <button type="submit">Decrypt</button>
@@ -119,46 +113,30 @@
 
         <div class="result-box">
             <h3>Result:</h3>
-            <p>{{ result }}</p>
+            <p><%= result %></p>
         </div>
 
-        <!-- Description Box for Algorithm Explanation, only shown after encryption -->
-        {% if algorithm == 'AES' %}
+        <% if (algorithm === 'AES') { %>
         <div class="description-box">
             <h3>How AES Works:</h3>
-            <p>AES (Advanced Encryption Standard) uses a block cipher technique with a fixed block size of 128 bits and key sizes of 128, 192, or 256 bits. AES operates in different modes, and we are using the EAX mode, which provides both confidentiality and authenticity.</p>
+            <p>AES (Advanced Encryption Standard) uses a block cipher technique with a fixed block size of 128 bits and key sizes of 128, 192, or 256 bits. AES operates in different modes, and we are using the GCM mode, which provides both confidentiality and authenticity.</p>
         </div>
-        {% elif algorithm == 'DES' %}
+        <% } else if (algorithm === 'DES') { %>
         <div class="description-box">
             <h3>How DES Works:</h3>
             <p>DES (Data Encryption Standard) is a block cipher that encrypts data in 64-bit blocks using a 56-bit key. It is considered less secure than modern standards like AES due to its shorter key length.</p>
         </div>
-        {% elif algorithm == '3DES' %}
-        <div class="description-box">
-            <h3>How 3DES Works:</h3>
-            <p>3DES (Triple DES) is a more secure version of DES, which applies the DES algorithm three times to each data block. This makes it significantly more secure than standard DES.</p>
-        </div>
-        {% elif algorithm == 'Blowfish' %}
-        <div class="description-box">
-            <h3>How Blowfish Works:</h3>
-            <p>Blowfish is a symmetric-key block cipher that uses variable-length keys (32 to 448 bits) and encrypts data in blocks of 64 bits. It is known for being fast and secure.</p>
-        </div>
-        {% elif algorithm == 'ChaCha20' %}
+        <% } else if (algorithm === 'ChaCha20') { %>
         <div class="description-box">
             <h3>How ChaCha20 Works:</h3>
             <p>ChaCha20 is a stream cipher known for its efficiency and security. It operates by generating a keystream that is XORed with the plaintext to produce the ciphertext.</p>
         </div>
-        {% elif algorithm == 'Salsa20' %}
-        <div class="description-box">
-            <h3>How Salsa20 Works:</h3>
-            <p>Similar to ChaCha20, Salsa20 is a stream cipher that is fast and secure. It generates a keystream for encryption by XORing it with the plaintext.</p>
-        </div>
-        {% endif %}
+        <% } %>
 
         <div class="description-box">
             <h3>Why You Can't Use Different Algorithms for Encryption and Decryption:</h3>
             <p>Each encryption algorithm operates in a specific way, generating encrypted text based on its unique structure, key size, and block size (for block ciphers). When data is encrypted using one algorithm, such as AES, the output (ciphertext) is dependent on the specific operations that AES performs.</p>
-            <p>If you try to decrypt the ciphertext using a different algorithm (e.g., trying to decrypt AES-encrypted data with Blowfish), the structure of the ciphertext won't match the expected format of the decryption algorithm. This mismatch results in an error because the decryption algorithm cannot correctly interpret or reverse the operations of the original encryption algorithm.</p>
+            <p>If you try to decrypt the ciphertext using a different algorithm (e.g., trying to decrypt AES-encrypted data with DES), the structure of the ciphertext won't match the expected format of the decryption algorithm. This mismatch results in an error because the decryption algorithm cannot correctly interpret or reverse the operations of the original encryption algorithm.</p>
         </div>
         
     </div>
